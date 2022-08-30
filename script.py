@@ -4142,8 +4142,8 @@ job_elements = soup.find_all("div", class_="two-column-container discussionconta
 # write to csv
 with open('output.csv', mode='w') as csv_file:
 
-	# fieldnames = ['network', 'network_num', 'name', 'address', 'post', 'remove_posted', 'extract_date', 'extract_time']
-	fieldnames = ['network', 'network_num', 'name', 'remove_posted', 'extract_date', 'extract_time']
+	# fieldnames = ['network', 'network_num', 'name', 'address', 'post', 'date_time', 'date', 'time']
+	fieldnames = ['network', 'network_num', 'name', 'date_time', 'date', 'time']
 	writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 	writer.writeheader()
 
@@ -4168,13 +4168,13 @@ with open('output.csv', mode='w') as csv_file:
 		print("post should be here ......")
 		
 		posted_date_time = job_element.find(class_="comment-time").get_text().strip()
-		remove_posted = posted_date_time[8:]
-		extract_date = remove_posted[:-8]
-		extract_date = remove_posted[:12]
-		extract_time = remove_posted[13:]
-		print(remove_posted)
-		print(extract_date)
-		print(extract_time)
+		date_time = posted_date_time[8:]
+		date = date_time[:-8]
+		# date = date_time[:12]
+		time = date_time[13:]
+		print(date_time)
+		print(date)
+		print(time)
 		
 		writer.writerow({
 							'network': network,
@@ -4182,7 +4182,7 @@ with open('output.csv', mode='w') as csv_file:
 							'name': name,
 							# 'address': address,
 							# 'post': post,
-							'remove_posted': remove_posted,
-							'extract_date': extract_date,
-							'extract_time': extract_time
+							'date_time': date_time,
+							'date': date,
+							'time': time
 						})
